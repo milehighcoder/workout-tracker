@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
   <nav>
     <a href="/">Fitness Tracker</a>
     <a href="/stats">Dashboard</a>
@@ -21,7 +20,9 @@
     <header>
       <h1>Fitness Tracker</h1>
     </header>
+
     <div class="ui container exercise">
+      <!-- Add Your Exercise Card -->
       <div class="ui raised card m-auto">
         <h2>Add Your Exercise</h2>
         <form action="POST">
@@ -98,19 +99,15 @@
               Add Exercise
             </button>
           </div>
-          
         </form>
       </div>
     </div>
   </div>
 
-  <div id="toast">
-    Workout Added Successfully!
-  </div>
+  <div id="toast">Workout Added Successfully!</div>
 
   <script src="./js/api.js"></script>
   <script src="./js/exercise.js"></script>
-
 </body>
 
 </html>
