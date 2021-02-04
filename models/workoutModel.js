@@ -39,7 +39,7 @@ const WorkoutSchema = new Schema({
 
       duration: {
         type: Number,
-        required: "Please enter the exercise duration.",
+        required: "Enter an exercise duration.",
       },
     },
   ],
