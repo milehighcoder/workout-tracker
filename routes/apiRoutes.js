@@ -1,49 +1,60 @@
 const Workout = require("../models/workoutModel");
 
-module.exports = function (app) {
-  // Gets and retrieves exercises in the Mongo database
-  app.get("/api/workouts", function (req, res) {
+module.exports = (app) => {
+  // Gets the Last Workout
+  app.get("/api/workouts", (req, res) => {
     Workout.find({})
-      .then((dbWorkout) => {
-        res.json(dbWorkout);
-      })
+      .then((data) => res.json(data))
       .catch((err) => {
+        console.log("error", err);
         res.json(err);
       });
   });
 
-  app.put("/api/workouts", function ({ body, params }, res) {
+  // Add an Exercise
+  app.put("/api/workouts/:id", (req, res) => {
     Workout.findByIdAndUpdate(
-      params.id,
-      { $push: { exercise: body } },
-      { new: true }
+      req.params.id,
+      { $push: { exercise: req.body } },
+      { new: true, runValidators: true }
     )
-      .then((Workout) => {
-        res.json(Workout);
+      .then((data) => {
+        res.json(data);
       })
       .catch((err) => {
+        console.log("error", err);
         res.json(err);
       });
   });
 
-  app.put("/api/workouts/:id", function ({ body, params }, res) {
-    Workout.findByIdAndUpdate(
-      params.id,
-      { $push: { exercise: body } },
-      { new: true }
-    )
-      .then((Workout) => {
-        res.json(Workout);
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  });
-
-  // Stores the exercises into the Mongo database
+  // Creates a Workout
   app.post("/api/workouts", function (req, res) {
     Workout.create({})
       .then((data) => res.json(data))
+      .catch((err) => {
+        console.log("error", err);
+        res.json(err);
+      });
+  });
+
+  // Find Workouts
+  app.get("/api/workouts/range", (req, res) => {
+    Workout.find({})
+      .limit(10)
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
+
+  // Delete workout
+  app.delete("/api/workouts", ({ body }, res) => {
+    Workout.findByIdAndDelete(body.id)
+      .then(() => {
+        res.json(true);
+      })
       .catch((err) => {
         res.json(err);
       });
