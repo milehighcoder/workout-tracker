@@ -1,13 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const logger = require("morgan");
-// const path = require("path");
-
+const logger = require("morgan");
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
-// const db = require("./models");
+app.use(logger("dev"));
 
 // Express Connections
 app.use(express.urlencoded({ extended: true }));
@@ -17,11 +14,16 @@ app.use(express.static("public"));
 // Mongoose Connection
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/workoutTracker",
-  { useNewUrlParser: true }
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  }
 );
 
 // Routes
-require("./routes/apiRoutes")(app);
+require("./routes/apiRoutes.js")(app);
 require("./routes/htmlRoutes.js")(app);
 
 // Server Listener
