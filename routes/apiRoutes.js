@@ -1,7 +1,7 @@
 const Workout = require("../models/workoutModel");
 
 module.exports = (app) => {
-  // Gets the Last Workout
+  // Gets workouts
   app.get("/api/workouts", (req, res) => {
     Workout.find({})
       .then((data) => res.json(data))
@@ -11,7 +11,7 @@ module.exports = (app) => {
       });
   });
 
-  // Add an Exercise
+  // Add an exercise
   app.put("/api/workouts/:id", (req, res) => {
     Workout.findByIdAndUpdate(
       req.params.id,
@@ -27,7 +27,7 @@ module.exports = (app) => {
       });
   });
 
-  // Creates a Workout
+  // Create a Workout
   app.post("/api/workouts", function (req, res) {
     Workout.create({})
       .then((data) => res.json(data))
@@ -37,7 +37,7 @@ module.exports = (app) => {
       });
   });
 
-  // Find Workouts
+  // Find workouts
   app.get("/api/workouts/range", (req, res) => {
     Workout.find({})
       .limit(10)
