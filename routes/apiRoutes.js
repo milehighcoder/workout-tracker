@@ -15,7 +15,7 @@ module.exports = (app) => {
   app.put("/api/workouts/:id", (req, res) => {
     Workout.findByIdAndUpdate(
       req.params.id,
-      { $push: { exercise: req.body } },
+      { $push: { exercises: req.body } },
       { new: true, runValidators: true }
     )
       .then((data) => {
