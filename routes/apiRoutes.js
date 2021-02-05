@@ -4,6 +4,20 @@ module.exports = function (app) {
   // Gets and retrieves exercises in the Mongo database
   app.get("/api/workouts", function (req, res) {
     Workout.find({})
+      .then((dbWorkout) => {
+        res.json(dbWorkout);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
+
+  app.put("/api/workouts", function ({ body, params }, res) {
+    Workout.findByIdAndUpdate(
+      params.id,
+      { $push: { exercise: body } },
+      { new: true }
+    )
       .then((Workout) => {
         res.json(Workout);
       })
@@ -12,7 +26,7 @@ module.exports = function (app) {
       });
   });
 
-  app.put("/api/workouts", function ({ body, params }, res) {
+  app.put("/api/workouts/:id", function ({ body, params }, res) {
     Workout.findByIdAndUpdate(
       params.id,
       { $push: { exercise: body } },

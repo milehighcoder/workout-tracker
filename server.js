@@ -12,9 +12,12 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Mongoose Connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutTracker", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/workoutTracker",
+  {
+    useNewUrlParser: true,
+  }
+);
 
 // Routes
 require("./routes/apiRoutes")(app);
